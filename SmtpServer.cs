@@ -27,18 +27,21 @@ namespace FakeSMTP
 {
 	public class SmtpServer
 	{
+		public bool TimeToStop;
+
 		#region "privatedata"
 
-		private static bool _timeToStop;
-		private static TcpListener _listener;
+		private TcpListener _listener;
 
 		#endregion
 
 		#region "entrypoint"
 
-		// main entry point
-		public static int Main(string[] args)
+		public int Start()
 		{
+			// clear the flag in case we've previously been stopped.
+			TimeToStop = false;
+
 			// our internal stuff
 			var retCode = 0;
 
@@ -70,7 +73,7 @@ namespace FakeSMTP
 			AppGlobals.WriteConsole("Listening for connections on {0}:{1}", listenAddr, listenPort);
 
 			// run until interrupted (Ctrl-C in our case)
-			while (!_timeToStop)
+			while (!TimeToStop)
 			{
 				try
 				{
@@ -84,12 +87,12 @@ namespace FakeSMTP
 					// we got an error
 					retCode = 2;
 					AppGlobals.WriteConsole("Handler::Error: " + ex.Message);
-					_timeToStop = true;
+					TimeToStop = true;
 				}
 			}
 
 			// finalize
-			if (null != _listener)
+			if (_listener != null)
 			{
 				try
 				{
