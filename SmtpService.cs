@@ -17,6 +17,7 @@ namespace FakeSMTP
 		protected override void OnStart(string[] args)
 		{
 			_serverThread = new Thread(() => _server.Start());
+			_serverThread.Start();
 		}
 
 		protected override void OnStop()
