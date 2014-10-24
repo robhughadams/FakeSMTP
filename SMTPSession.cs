@@ -436,7 +436,7 @@ namespace FakeSMTP
 				_errCount++;
 				return string.Format("503 you already sent {0} ...", parts[0]);
 			}
-			if (!_CheckHelo(parts[1]))
+			if (AppGlobals.CheckHelloFormat && !_CheckHelo(parts[1]))
 			{
 				_errCount++;
 				return String.Format("501 Invalid {0}", parts[0]);

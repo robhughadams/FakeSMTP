@@ -224,6 +224,8 @@ namespace FakeSMTP
 			if (!string.IsNullOrEmpty(fileName))
 				mailboxes = AppGlobals.LoadFile(fileName);
 
+			var checkHelloFormat = bool.Parse(ConfigurationManager.AppSettings["CheckHelloFormat"]);
+
 			// set the global values
 			AppGlobals.ListenIp = listenIp;
 			AppGlobals.ListenAddress = listenAddress;
@@ -249,6 +251,7 @@ namespace FakeSMTP
 			AppGlobals.ErrorDelay = errorDelay;
 			AppGlobals.LocalDomains = domains;
 			AppGlobals.LocalMailBoxes = mailboxes;
+			AppGlobals.CheckHelloFormat = checkHelloFormat;
 		}
 
 		// dump the current settings

@@ -127,6 +127,9 @@ namespace FakeSMTP
 		// locally handled mailboxes
 		public static List<string> LocalMailBoxes { get; set; }
 
+		// check hello format
+		public static bool CheckHelloFormat { get; set; }
+
 		#endregion
 
 		#region "methods"
